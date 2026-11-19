@@ -52,6 +52,58 @@ button,input,select{font:inherit;color:inherit}button{cursor:pointer;background:
 
 .state-canvas .id-label{font-size:15.8px}.state-canvas{height:clamp(245px,34vh,345px)}
 .reference-visual{padding:11px 13px;border:1px solid var(--line);background:#fafbf6;border-radius:7px;margin:14px 0}.reference-visual h4{font-size:13.5px!important;margin:4px 0!important}.reference-visual p{font-size:12px!important;margin:4px 0!important;line-height:1.5}.vocab-group{display:grid;grid-template-columns:115px 1fr;gap:8px;align-items:start;margin:5px 0 10px}.vocab-group>span{font-size:11px;color:var(--muted);margin-top:4px}.vocab-group>div{display:flex;gap:4px;flex-wrap:wrap}.catalog-verb{border-radius:5px;border:1px solid #c5d4c3;padding:4px 6px;font:11px/1.3 var(--mono);background:#edf4eb}.catalog-verb b{color:#42664c;font-size:10px}.support .catalog-verb{border-color:#d6ccd8;background:#f3eef6}.catalog-verb[aria-pressed=true]{outline:1.5px solid var(--accent)}.vocab-reason{border-top:1px solid var(--line);padding-top:6px}.vocab-reason .lab-src{display:block}.limit-grid{display:grid;grid-template-columns:minmax(200px,1fr) minmax(120px,.65fr);gap:12px;align-items:center;margin:7px 0 12px}.limit-grid>svg{display:block;width:100%;max-height:180px}.limit-grid b{font:12px var(--mono)}.limit-grid small{font-size:10px;color:var(--muted)}.footprint-label{font:10px var(--mono);fill:#294a38;paint-order:stroke;stroke:#f5f8f0;stroke-width:2px}.span-row{display:grid;grid-template-columns:68px 1fr 65px;gap:9px;align-items:center;margin:4px 0;font-size:11px}.span-row>div{height:6px;background:#e1e8de;border-right:2px solid #78866e}.span-row>div i{display:block;height:100%}.span-row code{text-align:right;font-size:10px}@media(max-width:540px){.vocab-group{grid-template-columns:1fr;gap:2px}.limit-grid{grid-template-columns:1fr;gap:3px}.reference-visual{padding:8px}}
+/* Playback gives the recorded graph and CAD the same drawing area. */
+.scene-body.playback, .playback-body { height: auto; overflow: visible; }
+.paired-playback .workspace-head { flex-wrap: wrap; }
+.paired-playback #inspector { max-height: min(78dvh, 780px); }
+.workspace > .timeline {
+  margin: 0;
+  padding: 8px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}
+.workspace > .timeline .transport-row { margin-top: 0; }
+.workspace > .timeline .timeline-head { display: none; }
+.playback-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.playback-panel { min-width: 0; }
+.playback-panel + .playback-panel { border-left: 1px solid var(--line); }
+.panel-heading, .panel-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 6px 12px;
+}
+.panel-heading { justify-content: space-between; min-height: 42px; }
+.panel-heading h3 { font-size: 15px; }
+.panel-options {
+  min-height: 33px;
+  border-block: 1px solid var(--line);
+  background: #f5f7f0;
+  color: var(--muted);
+  font-size: 11px;
+}
+.playback-panel .graph-shell { height: clamp(245px, 33dvh, 345px); }
+.playback-panel .legend { padding: 6px 12px; gap: 4px 12px; }
+.playback-panel .key.ring { border-style: solid; }
+.playback-panel .cad-caption { padding: 5px 12px; }
+.state-canvas svg .id-label { font-size: 17px; }
+@media (max-width: 1200px) {
+  .workbench.paired-playback { grid-template-columns: minmax(0, 1fr); }
+  .paired-playback #inspector { max-height: 390px; }
+}
+@media (max-width: 750px) {
+  .playback-panels { grid-template-columns: minmax(0, 1fr); }
+  .playback-panel + .playback-panel { border-left: 0; border-top: 1px solid var(--line); }
+  .playback-panel .graph-shell { height: clamp(210px, 54vw, 290px); }
+}
+@media (max-width: 540px) and (min-height: 550px) {
+  .workspace > .timeline { border-top: 1px solid var(--line); border-radius: 10px 10px 0 0; }
+  .workspace > .timeline .timeline-head { display: flex; }
+  .workspace > .timeline .transport-row { margin-top: 6px; }
+}
 </style>
 <script id="font-license" type="text/plain">Inter. Copyright The Inter Project Authors (https://github.com/rsms/inter).
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
@@ -142,7 +194,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
 <style id="explorer-report-navigation">#publication-navigation{position:static;display:flex;flex-wrap:wrap;gap:.4rem 1rem;max-width:75rem;margin:1rem auto;padding:1rem;border-top:1px solid var(--line);font:inherit}#publication-navigation a{color:var(--ink);text-decoration:underline}#publication-navigation [aria-current]{font-weight:bold}</style></head>
 <body>
 <a class="skip" href="#main">Skip to explorer</a>
-<svg aria-hidden="true" class="symbol-library" xmlns="http://www.w3.org/2000/svg"><defs id="icons"></defs></svg>
+<svg aria-hidden="true" class="symbol-library" xmlns="http://www.w3.org/2000/svg"><defs id="icons"></defs><defs>
+<marker id="tip" markerheight="5" markerwidth="5" orient="auto" refx="6.7" refy="4" viewbox="0 0 8 8"><path d="m0 0 8 4-8 4z" fill="#879a8b"></path></marker>
+<marker id="tip-hot" markerheight="5" markerwidth="5" orient="auto" refx="6.7" refy="4" viewbox="0 0 8 8"><path d="m0 0 8 4-8 4z" fill="#a34f35"></path></marker>
+</defs></svg>
 <header class="topbar"><div class="container bar-inner">
 <div class="identity"><span class="brand-mark" data-icon="brick"></span><strong>LegoSim</strong><span class="divider"></span><span class="product">Assembly explorer</span></div>
 <div class="top-actions">
@@ -156,7 +211,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
 <div class="notice" hidden="" id="discrepancy"></div>
 <div class="workbench">
 <section aria-label="Graph and build details" class="workspace">
-<div class="workspace-head"><div><h2 id="view-title"></h2><p id="view-subtitle"></p></div><div aria-label="Graph camera" class="zoom-group"><button aria-label="Zoom out" class="icon-button" data-cmd="zoom-out" title="Zoom out"><span data-icon="minus"></span></button><button aria-label="Zoom in" class="icon-button" data-cmd="zoom-in" title="Zoom in"><span data-icon="plus"></span></button><span></span><button class="fit" data-cmd="fit" title="Fit the graph to the canvas"><span data-icon="fit"></span>Fit</button></div></div>
+<div class="workspace-head"><div><h2 id="view-title"></h2><p id="view-subtitle"></p></div><div id="view-tools"></div></div>
 <div class="scene-body" id="scene-body"></div>
 <div aria-label="Graph legend" class="legend" id="legend"></div>
 </section>
@@ -223,7 +278,7 @@ const viewInfo = {
 const state = {
   view:'pipeline', selection:'stage:input', cursor:0, playing:null,
   treeOpen:new Set(Object.keys(instances)), phaseOpen:new Set([phases[0].id]),
-  target:false, display:'connections',poseFrame:'scene',camera:{}, searchActive:0, searchResults:[], relation:null, capSection:null
+  target:false, poseFrame:'scene',camera:{}, searchActive:0, searchResults:[], relation:null, capSection:null
 };
 const icons = {
  brick:'<path d="m2.5 10 9.5-5 9.5 5-9.5 5z M2.5 10v6l9.5 5 9.5-5v-6 M12 15v6"/><path d="m6 8 .1-1.8L9 4.9l2.4 1.3v1.5m1.4-3.1.1-1.4L15.5 2l2.5 1.3v2.4"/>',
@@ -337,17 +392,24 @@ function nextState(view) {
   }
   renderAll();
 }
+function setCursor(cursor) {
+  state.cursor=Math.max(0,Math.min(actions.length,Number(cursor)));
+  state.target=false;
+}
 function select(key, {seek=true, route=false}={}) {
   const [type,id]=keyParts(key);
   stopPlay();state.selection=key;
   if(type==='action'){
     const idx=actionIndex.get(id);if(idx===undefined)return;
-    if(seek)state.cursor=idx+1;
+    if(seek)setCursor(idx+1);
     state.phaseOpen.add(actions[idx].step);
   }else if(type==='phase'){
-    if(seek)state.cursor=phaseMap[id].last;
+    if(seek)setCursor(phaseMap[id].last);
     state.phaseOpen.add(id);
   }else if(type==='part'){
+    if(state.view==='playback' && !state.target && state.poseFrame==='pot' && !recorded(state.cursor)?.potComponent.includes(id)){
+      state.poseFrame='scene';
+    }
     state.treeOpen.add(rootId);state.treeOpen.add(groupOf(id));
     phases.filter(p=>p.parts?.includes(id)).forEach(p=>state.phaseOpen.add(p.id));
   }else if(type==='group'){
@@ -355,13 +417,15 @@ function select(key, {seek=true, route=false}={}) {
     if(instances[id])state.treeOpen.add(id);
     phases.filter(p=>p.schedule.instance===id || p.assembly===id).forEach(p=>state.phaseOpen.add(p.id));
   }
-  if(route)state.view={part:'hierarchy',group:'hierarchy',phase:'phases',action:'phases',stage:'pipeline',edge:'playback'}[type];
+  if(route && (state.view!=='playback' || type==='stage')){
+    state.view={part:'hierarchy',group:'hierarchy',phase:'phases',action:'phases',stage:'pipeline',edge:'playback'}[type];
+  }
   el('inspect-content').scrollTop=0;
   renderAll();
 }
 function seek(cursor, fromPlay=false){
   if(!fromPlay)stopPlay();
-  state.cursor=Math.max(0,Math.min(actions.length,Number(cursor)));
+  setCursor(cursor);
   if(state.cursor){
     const row=actions[state.cursor-1];state.selection='action:'+row.id;state.phaseOpen.add(row.step);
   }else state.selection='stage:scene';
@@ -371,6 +435,7 @@ function stopPlay(){if(state.playing!==null){clearInterval(state.playing);state.
 function togglePlay(){
   if(state.playing!==null) {stopPlay();renderTimeline();return;}
   if(state.cursor===actions.length)seek(0);
+  else if(state.target)seek(state.cursor);
   state.playing=setInterval(()=>{
     if(state.cursor>=actions.length){stopPlay();renderTimeline();return;}
     seek(state.cursor+1,true);
@@ -417,12 +482,18 @@ function cameraView(name,width,height){
   const c=state.camera[name];
   return c ? `${c.x} ${c.y} ${c.width} ${c.height}` : `0 0 ${width} ${height}`;
 }
+function cameraControls(label){
+  return `<div class="zoom-group" role="group" aria-label="${esc(label)} camera">
+    <button data-cmd="zoom-out" class="icon-button" aria-label="Zoom out" title="Zoom out">${icon('minus')}</button>
+    <button data-cmd="zoom-in" class="icon-button" aria-label="Zoom in" title="Zoom in">${icon('plus')}</button>
+    <span></span><button data-cmd="fit" class="fit" title="Fit ${esc(label.toLowerCase())} to panel">${icon('fit')}Fit</button>
+  </div>`;
+}
 function svgFrame(name,width,height,content,title,css=''){
   const vb=cameraView(name,width,height);
   return `<div class="graph-shell graph-surface ${css}"><svg data-cam="${name}" data-width="${width}" data-height="${height}" viewBox="${vb}" aria-label="${esc(title)}" role="group" xmlns="http://www.w3.org/2000/svg">
     <title>${esc(title)}. Drag the background to pan. Use the zoom buttons or Control and the mouse wheel.</title>
-    <defs><marker id="tip" viewBox="0 0 8 8" refX="6.7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="m0 0 8 4-8 4z" fill="#879a8b"/></marker>
-    <marker id="tip-hot" viewBox="0 0 8 8" refX="6.7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="m0 0 8 4-8 4z" fill="#a34f35"/></marker></defs>${content}</svg></div>`;
+    ${content}</svg></div>`;
 }
 function svgIcon(name,x,y,size=20){
  return `<use class="svg-icon" href="#i-${esc(name)}" x="${x}" y="${y}" width="${size}" height="${size}"/>`;
@@ -562,39 +633,40 @@ function renderPhases(){
 
 
 const positionSlots={
- base:[[85,182],[192,182],[294,182]],pin_block:[[567,182],[479,137],[479,226],[390,182]],
- left_base:[[815,182],[695,182],[703,252]],
- 'rail.front':[[226,40],[428,89],[395,22],[599,40]],
- 'rail.back':[[224,318],[419,279],[405,344],[603,318]]
+ base:[[48,182],[131,182],[214,182]],pin_block:[[432,182],[365,137],[365,226],[298,182]],
+ left_base:[[596,182],[514,182],[518,252]],
+ 'rail.front':[[160,40],[305,89],[280,27],[430,40]],
+ 'rail.back':[[160,318],[300,279],[286,344],[430,318]]
 };
 const layout={};
 leaves.forEach((id,k)=>groups[id].parts.forEach((pid,i)=>{
-  layout[pid]=positionSlots[id]?.[i] || [70+(i%5)*155,40+(k%5)*70];
+  layout[pid]=positionSlots[id]?.[i] || [55+(i%5)*128,40+(k%5)*70];
 }));
-function stateDiagram(){
- const at=recorded(state.cursor), mode=state.target?'target':'actual';
+function stateDiagram(at){
+ const mode=state.target?'target':'actual', w=64, h=30;
  const edges=state.target?model.edges:(at?.connections||[]);
  const support=state.target?[]:(at?.support||[]);
  const all=edges.map(edge=>{
    const [x1,y1]=layout[edge.a],[x2,y2]=layout[edge.b],key='edge:'+edgeKey(edge);
    const dx=x2-x1,dy=y2-y1;
-   const t=Math.min(43/(Math.abs(dx)||.00001),15/(Math.abs(dy)||.00001));
+   const t=Math.min(w/(2*Math.abs(dx)),h/(2*Math.abs(dy)));
    const d=`M${x1+t*dx} ${y1+t*dy} L${x2-t*dx} ${y2-t*dy}`;
    const val=state.target?`${edge.kind==='fallback'?'Geometric fallback':'Connector-derived'} target pair`:`${edge.count} recorded connector engagement${edge.count===1?'':'s'}`;
    return `<g role="button" tabindex="0" aria-label="${esc(`${edge.a} to ${edge.b}, ${val}`)}" data-key="${key}" data-edge-kind="${mode}" class="selectable state-edge-link ${relationClass(key)}"><title>${esc(`${edge.a} ↔ ${edge.b} · ${val}`)}</title><path class="state-edge ${mode} ${edge.kind} ${relationClass(key)}" d="${d}"/><path d="${d}" fill="none" stroke="transparent" stroke-width="12"/></g>`;
  }).join('');
  const nodeHtml=model.parts.map(p=>{
-   const [x,y]=layout[p.pid],w=86,h=30,c=color(p.owner),key='part:'+p.pid;
+   const [x,y]=layout[p.pid],c=color(p.owner),key='part:'+p.pid;
    const built=at?.parts[p.pid].where==='assembly';
    const holders=support.filter(s=>s.parts.includes(p.pid));
    const hand=holders.find(s=>s.anchor===p.pid);
    const dash=holders.some(s=>s.kind==='table-brace')?'2 3':'6 3';
    const border=holders.length?`<rect x="-4" y="-4" width="${w+8}" height="${h+8}" rx="9" fill="none" stroke="#765483" stroke-width="1.7" stroke-dasharray="${dash}"/>`:'';
-   const handTag = hand?`<path d="M${w/2} 0v-9" stroke="#765483" stroke-dasharray="2 2"/><rect x="${w/2-25}" y="-21" width="50" height="14" rx="4" fill="#efe6f5" stroke="#bca5c8"/><text x="${w/2}" y="-11" text-anchor="middle" style="font:8.5px var(--mono);fill:#624273">${hand.hand} ${hand.kind==='table-brace'?'brace':'hold'}</text>`:'';
+   const handTag = hand?`<path d="M${w/2} 0v-9" stroke="#765483" stroke-dasharray="2 2"/><rect x="0" y="-24" width="${w}" height="17" rx="4" fill="#efe6f5" stroke="#bca5c8"/><text x="${w/2}" y="-11" text-anchor="middle" style="font:12px var(--mono);fill:#624273">${hand.hand} ${hand.kind==='table-brace'?'brace':'hold'}</text>`:'';
    return `<g class="selectable node ${relationClass(key)}" tabindex="0" data-key="${key}" role="button" aria-label="${p.pid}, ${esc(p.title)}" transform="translate(${x-w/2} ${y-h/2+13})" style="--node-color:${c};--node-tint:${c}22"><title>${esc(`${p.pid} · ${p.title} · ${state.target?'Target design':physicalWhere(p.pid)}`)}</title><rect class="svg-card" width="${w}" height="${h}" rx="6" style="${built&&!state.target?'fill:'+c+'15;':''}"/><rect x="5" y="6" width="4" height="15" rx="2" fill="${c}"/><text x="18" y="20.5" class="id-label">${p.pid}</text>${border}${handTag}</g>`;
  }).join('');
  // Node centers include 13 units of clearance for hand labels.
- return svgFrame('playback',900,379,`<g transform="translate(0 13)">${all}</g>${nodeHtml}`,state.target?'Target connector graph':at?'Recorded engine connections after the selected action':'Planned part inventory','state-canvas');
+ const title=state.target?'Target connector graph':at?`Recorded connections at ${at.cursor?'action '+at.cursor:'initialization'}`:'Planned part inventory';
+ return svgFrame('playback',640,379,`<g transform="translate(0 13)">${all}</g>${nodeHtml}`,title,'state-canvas');
 }
 function physicalWhere(pid,at=recorded(state.cursor)){
  if(!at)return 'Planned';
@@ -618,6 +690,16 @@ function componentTitle(parts, at){
  if(at.potComponent.length && at.potComponent.some(p=>parts.includes(p)))return 'Pot';
  const own=groupSet(parts);return own.length===1?nice(own[0]):'Joined group';
 }
+function renderPlaybackHeader(){
+ const cursor=state.cursor, action=actions[cursor-1];
+ const boundary=cursor?`After action ${cursor} of ${actions.length}`:`Initial state · 0 of ${actions.length}`;
+ const description=action?`${ucfirst(human(action.action))} · ${shortTarget(action,cursor-1)} · Phase ${phaseMap[action.step].number}, ${labelPhase(phaseMap[action.step])}`:'Loose inventory on the table';
+ el('view-title').textContent=state.target?'Finished target design':boundary;
+ el('view-subtitle').textContent=state.target?`Timeline at ${cursor} of ${actions.length} · ${description}`:description;
+ el('view-tools').innerHTML=`<div class="segment" role="group" aria-label="Build playback mode">
+   <button data-cmd="actual-graph" aria-pressed="${!state.target}">${verified?'Recorded state':'Planned state'}</button>
+   <button data-cmd="target-graph" aria-pressed="${state.target}">Target design</button></div>`;
+}
 function renderPlayback(){
  const at=recorded(state.cursor);
  const targetCounts=model.edges.filter(e=>e.kind==='fallback').length;
@@ -629,7 +711,18 @@ function renderPlayback(){
  const installation=at?`<div class="installed-row"><span>Installed on pot</span>${installed.length?installed.map(groupChip).join(''):'<small>No joined module yet</small>'}</div>`:'';
  const currentMarkup=at?list.map(parts=>`<div class="component-line"><span class="component-name">${esc(componentTitle(parts,at))} (${parts.length})</span><span class="chips">${parts.map(partChip).join('')}</span></div>`).join('')+
  (held.length?`<div class="component-line"><span class="component-name">Held pieces (${held.length})</span><span class="chips">${held.map(partChip).join('')}</span></div>`:'')+(loose.length?`<div class="component-line"><span class="component-name">Loose (${loose.length})</span><span class="chips">${loose.map(partChip).join('')}</span></div>`:''):'<p>Inspect the authored action at this cursor.</p>';
- return `<div class="playback-body"><div class="sub-toolbar"><div class="playback-switches"><div class="segment"><button data-cmd="connections" aria-pressed="${state.display==='connections'}">Connections</button><button data-cmd="cad" aria-pressed="${state.display==='cad'}">CAD poses</button></div><div class="segment"><button data-cmd="actual-graph" aria-pressed="${!state.target}">${verified?'Recorded state':'Planned state'}</button><button data-cmd="target-graph" aria-pressed="${state.target}">Target design</button></div></div><span class="state-count">${esc(counters)}</span></div>${state.display==='cad'?poseDiagram():stateDiagram()}
+ return `<div class="playback-body"><div class="playback-panels">
+   <section class="playback-panel" aria-labelledby="connection-heading">
+     <div class="panel-heading"><h3 id="connection-heading">Connection graph</h3>${cameraControls('Connection graph')}</div>
+     <div class="panel-options state-count">${esc(counters)}</div>
+     ${stateDiagram(at)}
+     <div class="legend" aria-label="Connection graph legend">${connectionLegend()}</div>
+   </section>
+   <section class="playback-panel" aria-labelledby="cad-heading">
+     <div class="panel-heading"><h3 id="cad-heading">Orthographic CAD</h3>${at || state.target?cameraControls('CAD'):''}</div>
+     ${poseDiagram(at)}
+   </section>
+ </div>
  ${state.target?`<div class="state-list"><h3>Target geometry · finished prefix</h3><p>Pairs come from the model’s framed target poses. A fallback links otherwise separate components using geometric contact.</p><div class="chips">${leaves.map(groupChip).join('')}</div></div>`:handRow(at)+`<div class="state-list"><h3>Components after ${state.cursor===0?'initialization':'action '+state.cursor}</h3>${currentMarkup}${installation}</div>`}</div>`;
 }
 function legendItem(name,c,shape){
@@ -639,17 +732,18 @@ function graphLegend(){
  if(state.view==='pipeline')return Object.values(categories).map(c=>legendItem(c.label,c.ink,'')).join('');
  if(state.view==='hierarchy')return legendItem('Contains','#9ca899','line')+legendItem('Selected','#aa4d32','ring')+`<span class="legend-item">Swatch = LDraw color</span><span class="legend-item">Pot milestones share the same inventory</span>`;
  if(state.view==='phases')return legendItem('Prerequisite → dependent','#899c8c','line')+legendItem('Construction action','#35735c')+legendItem('Support action','#775586')+`<span class="legend-item">P = recipe phase</span>`;
- if(state.display==='cad')return legendItem('Selected piece','#a3482c','ring')+legendItem('Related piece','#588061','line')+legendItem('Hand anchor','#795687','line dotted')+'<span class="legend-item">Piece color = LDraw material</span>';
+}
+function connectionLegend(){
  return state.target?legendItem('Connector-derived target','#6f8ea7','line dashed')+legendItem('Geometric fallback','#a67535','line dotted')+`<span class="legend-item">Node stripe = module</span>`:
  legendItem('Recorded connection','#426e61','line')+legendItem('Held component','#765483','line dashed')+legendItem('Table brace','#765483','line dotted')+`<span class="legend-item">Filled = built · stripe = module</span>`;
 }
 
 
-function poseDiagram(){
- const data=DATA.poseArt,at=recorded(state.cursor);
+function poseDiagram(at){
+ const data=DATA.poseArt;
  if(!at&&!state.target) return '<p class="unavailable">Recorded poses are unavailable at this position.</p>';
  const which=state.target?'target':state.poseFrame;
- const key=which==='target'?data.target:data.states[state.cursor][which], frame=data.frames[key];
+ const key=which==='target'?data.target:data.states[at.cursor][which], frame=data.frames[key];
  const image=frame.image?`<image x="0" y="0" width="${data.width}" height="${data.height}" href="${frame.image}" pointer-events="none"/>`:'';
  const support=state.target?[]:at.support;
  const selectedPid=state.selection.startsWith('part:')?keyParts(state.selection)[1]:null;
@@ -659,13 +753,27 @@ function poseDiagram(){
    return `<path d="${shape.d}" fill-rule="evenodd" class="cad-piece ${related}" fill="transparent" stroke-linejoin="round" data-key="part:${pid}" role="button" tabindex="0" aria-label="Inspect ${pid}, ${esc(label)}"><title>${esc(`${pid} · ${label}`)}</title></path>`;
  }).join('');
  const tags=Object.entries(frame.parts).filter(([pid])=>support.some(s=>s.anchor===pid)||pid===selectedPid).map(([pid,shape])=>{
-   const s=support.find(s=>s.anchor===pid),[x,y]=shape.anchor,yTag=y<35?y+25:y-22;
-   const txt=s?`${s.hand} ${s.kind==='table-brace'?'brace':'hold'} · ${pid}`:pid,w=txt.length*6.5+10, cx=Math.max(w/2+2,Math.min(data.width-w/2-2,x));
-   return `<g pointer-events="none"><path d="M${x} ${y} L${cx} ${yTag}" stroke="#6c4b80" stroke-width="1" /><circle cx="${x}" cy="${y}" r="2" fill="#6c4b80"/><rect x="${cx-w/2}" y="${yTag-9}" width="${w}" height="16" rx="4" fill="#faf4fc" stroke="#9d84a9"/><text text-anchor="middle" x="${cx}" y="${yTag+2}" style="font:10.5px var(--mono);fill:#5d3e68">${esc(txt)}</text></g>`;
+   const s=support.find(s=>s.anchor===pid),[x,y]=shape.anchor,yTag=y<46?y+34:y-34;
+   const txt=s?`${s.hand} ${s.kind==='table-brace'?'brace':'hold'} · ${pid}`:pid;
+   const w=txt.length*10.2+14, cx=Math.max(w/2+2,Math.min(data.width-w/2-2,x));
+   const ink=s?'#6c4b80':'#a44226';
+   return `<g pointer-events="none">
+     <path d="M${x} ${y} L${cx} ${yTag}" stroke="${ink}" stroke-width="1.7" ${s?'stroke-dasharray="3 3"':''}/>
+     <circle cx="${x}" cy="${y}" r="3" fill="${ink}"/>
+     <rect x="${cx-w/2}" y="${yTag-12}" width="${w}" height="23" rx="4" fill="${s?'#faf4fc':'#fff6f1'}" stroke="${ink}"/>
+     <text text-anchor="middle" x="${cx}" y="${yTag+5}" style="font:16px var(--mono);fill:${ink}">${esc(txt)}</text>
+   </g>`;
  }).join('');
  const empty=frame.image?'':`<text x="${data.width/2}" y="${data.height/2}" text-anchor="middle" class="minor">The first placement starts the pot.</text>`;
  const caption=state.target?'Target geometry in the model’s table frame.':which==='pot'?'Only pieces currently connected to the pot seed are visible. The camera stays fixed as the pot grows.':'All pieces in the recorded table frame. Loose pieces in a hand retain their last committed pose until placed.';
- return `<div class="cad-pose"><div class="pose-controls">${state.target?'<strong>Finished target</strong>':`<span>Frame</span><button class="small-button" data-cmd="whole-scene" aria-pressed="${which==='scene'}">Whole scene</button><button class="small-button" data-cmd="pot-frame" aria-pressed="${which==='pot'}">Pot close-up</button>`}<small>Orthographic CAD</small></div>${svgFrame('cad-'+which,data.width,data.height,image+parts+tags+empty,'LDraw geometry at '+(state.target?'target poses':`recorded endpoint ${state.cursor}`),'cad-canvas')}<p class="cad-caption">${esc(caption)}</p></div>`;
+ const legend=legendItem('Selected piece','#a3482c','ring')+legendItem('Related piece','#588061','line')+
+   (state.target?'':legendItem('Hand anchor','#795687','line dotted'))+'<span class="legend-item">Piece color = LDraw material</span>';
+ return `<div class="panel-options pose-controls" role="group" aria-label="CAD frame">${state.target?'<strong>Finished target</strong>':`
+   <button class="small-button" data-cmd="whole-scene" aria-pressed="${which==='scene'}">Whole scene</button>
+   <button class="small-button" data-cmd="pot-frame" aria-pressed="${which==='pot'}">Pot close-up</button>`}</div>
+   ${svgFrame('cad-'+which,data.width,data.height,image+parts+tags+empty,'LDraw geometry at '+(state.target?'target poses':`recorded endpoint ${at.cursor}`),'cad-canvas')}
+   <div class="legend" aria-label="CAD legend">${legend}</div>
+   <p class="cad-caption">${esc(caption)}</p>`;
 }
 
 
@@ -1030,20 +1138,42 @@ function renderAll(){
  const [tabLabel,,title,description]=viewInfo[state.view];
  const body=el('scene-body');
  const same=body.dataset.view===state.view;
+ const playback=state.view==='playback', workbench=body.closest('.workbench');
+ if(!same){
+   const timeline=document.querySelector('.timeline');
+   workbench.classList.toggle('paired-playback',playback);
+   if(playback)body.before(timeline);
+   else if(workbench.contains(timeline))workbench.after(timeline);
+ }
+ const focused=same && playback?document.activeElement.closest('.playback-panel [data-key],.playback-panel [data-cmd],#view-tools [data-cmd]'):null;
+ const focusedPanel=focused?.closest('.playback-panel')?.getAttribute('aria-labelledby');
  const scrollElement=body.querySelector('.phases-body,.playback-body');
  const scroll=same?(scrollElement||body).scrollTop:0;
  const scheduleScroll=same?(body.querySelector('.schedule-side')?.scrollTop||0):0;
  body.dataset.view=state.view;body.className='scene-body '+state.view;
  const tabShort={pipeline:'Pipeline',hierarchy:'Assembly tree',phases:'Phases',playback:'Playback'};
  el('tabs').innerHTML=Object.entries(viewInfo).map(([id,v])=>`<button class="tab" data-view="${id}" aria-current="${id===state.view?'page':'false'}">${icon(v[1])}<span class="wide-tab">${esc(v[0])}</span><span class="short-tab">${esc(tabShort[id])}</span></button>`).join('');
- el('view-title').textContent=title;el('view-subtitle').textContent=description;body.setAttribute('aria-label',tabLabel);
+ if(playback)renderPlaybackHeader();
+ else {
+   el('view-title').textContent=title;el('view-subtitle').textContent=description;
+   if(!same)el('view-tools').innerHTML=cameraControls('Graph');
+ }
+ body.setAttribute('aria-label',tabLabel);
  body.innerHTML={pipeline:renderFlow,hierarchy:renderHierarchy,phases:renderPhases,playback:renderPlayback}[state.view]();
  const currentScroll=body.querySelector('.phases-body,.playback-body')||body;currentScroll.scrollTop=scroll;
  if(body.querySelector('.schedule-side'))body.querySelector('.schedule-side').scrollTop=scheduleScroll;
- el('legend').innerHTML=graphLegend();renderInspector();renderTimeline();
+ el('legend').hidden=playback;
+ if(!playback)el('legend').innerHTML=graphLegend();
+ renderInspector();renderTimeline();
+ if(focused){
+   const scope=focusedPanel?body.querySelector(`[aria-labelledby="${focusedPanel}"]`):el('view-tools');
+   const attr=focused.hasAttribute('data-key')?'data-key':'data-cmd';
+   scope?.querySelector(`[${attr}="${CSS.escape(focused.getAttribute(attr))}"]`)?.focus({preventScroll:true});
+ }
 }
-function handleCam(cmd){
- const svg=document.querySelector('.graph-shell svg[data-cam]');if(!svg)return;
+function handleCam(cmd,origin){
+ const panel=origin?.closest('.playback-panel') || el('scene-body');
+ const svg=panel.querySelector('svg[data-cam]');if(!svg)return;
  if(cmd==='fit'){
    delete state.camera[svg.dataset.cam];svg.setAttribute('viewBox',`0 0 ${svg.dataset.width} ${svg.dataset.height}`);
  }else zoomGraph(svg,cmd==='zoom-in'?.83:1.2);
@@ -1065,15 +1195,18 @@ let drag=null;
 document.addEventListener('pointerdown',event=>{
  const svg=event.target.closest('svg[data-cam]');
  if(!svg || event.button!==0 || event.target.closest('[data-key],[data-cmd]'))return;
- drag={svg,clientX:event.clientX,clientY:event.clientY,box:[svg.viewBox.baseVal.x,svg.viewBox.baseVal.y],matrix:svg.getScreenCTM().inverse(),pointer:event.pointerId};
- svg.setPointerCapture(event.pointerId);svg.classList.add('dragging');
+ drag={camera:svg.dataset.cam,clientX:event.clientX,clientY:event.clientY,box:[svg.viewBox.baseVal.x,svg.viewBox.baseVal.y],matrix:svg.getScreenCTM().inverse(),pointer:event.pointerId};
+ // The scene body keeps the pointer when a playback tick replaces the drawing.
+ el('scene-body').setPointerCapture(event.pointerId);svg.classList.add('dragging');
 });
 document.addEventListener('pointermove',event=>{
  if(!drag||event.pointerId!==drag.pointer)return;
- const start=new DOMPoint(drag.clientX,drag.clientY).matrixTransform(drag.matrix),now=new DOMPoint(event.clientX,event.clientY).matrixTransform(drag.matrix),vb=drag.svg.viewBox.baseVal;
- setCamera(drag.svg,drag.box[0]+start.x-now.x,drag.box[1]+start.y-now.y,vb.width,vb.height);
+ const svg=el('scene-body').querySelector(`svg[data-cam="${drag.camera}"]`);
+ if(!svg)return;
+ const start=new DOMPoint(drag.clientX,drag.clientY).matrixTransform(drag.matrix),now=new DOMPoint(event.clientX,event.clientY).matrixTransform(drag.matrix),vb=svg.viewBox.baseVal;
+ svg.classList.add('dragging');setCamera(svg,drag.box[0]+start.x-now.x,drag.box[1]+start.y-now.y,vb.width,vb.height);
 });
-function endDrag(){if(drag){drag.svg.classList.remove('dragging');drag=null;}}
+function endDrag(){if(drag){el('scene-body').querySelector('.dragging')?.classList.remove('dragging');drag=null;}}
 document.addEventListener('pointerup',endDrag);document.addEventListener('pointercancel',endDrag);
 document.addEventListener('wheel',e=>{
  const svg=e.target.closest('svg[data-cam]');if(svg&&(e.ctrlKey||e.metaKey)){e.preventDefault();zoomGraph(svg,e.deltaY>0?1.12:.89,pointerInSvg(svg,e.clientX,e.clientY));}
@@ -1111,19 +1244,21 @@ function revealAction(key){
  if(row.bottom>content.bottom-4||row.top<content.top+4)pane.scrollTop+=row.top-content.top-pane.clientHeight*.45;
 }
 function resetAll(){
- stopPlay();state.cursor=0;state.view='pipeline';state.selection='stage:input';state.target=false;state.display='connections';state.poseFrame='scene';
+ const playback=state.view==='playback';
+ stopPlay();setCursor(0);state.view=playback?'playback':'pipeline';state.selection=playback?'stage:scene':'stage:input';state.poseFrame='scene';
  state.treeOpen=new Set(Object.keys(instances));state.phaseOpen=new Set([phases[0].id]);state.camera={};
  dismissSearch();el('search').value='';el('inspect-content').scrollTop=0;renderAll();
 }
-function command(cmd,id){
- if(['zoom-in','zoom-out','fit'].includes(cmd)){handleCam(cmd);return;}
+function command(cmd,id,origin){
+ if(['zoom-in','zoom-out','fit'].includes(cmd)){handleCam(cmd,origin);return;}
  if(cmd==='play'){togglePlay();return;}
  if(cmd==='reset'){resetAll();return;}
  if(cmd==='previous'||cmd==='next'){seek(state.cursor+(cmd==='next'?1:-1));return;}
  if(cmd==='capabilities'){openCapabilities();return;}
  if(cmd==='close-cap'){el('cap-dialog').close();return;}
  if(cmd==='end-phase'){select('phase:'+id);return;}
- if(cmd==='show-target'){state.target=true;state.display='connections';nextState('playback');return;}
+ if(cmd==='show-target'){stopPlay();state.target=true;nextState('playback');return;}
+ if(cmd==='whole-scene'||cmd==='pot-frame'){state.poseFrame=cmd==='whole-scene'?'scene':'pot';renderAll();return;}
  stopPlay();
  switch(cmd){
    case 'toggle-group':state.treeOpen.has(id)?state.treeOpen.delete(id):state.treeOpen.add(id);break;
@@ -1137,10 +1272,6 @@ function command(cmd,id){
      if(open)state.phaseOpen.delete(id);else state.phaseOpen.add(id);
      el('inspect-content').scrollTop=0;break;
    }
-   case 'connections':state.display='connections';break;
-   case 'cad':state.display='cad';break;
-   case 'whole-scene':state.poseFrame='scene';break;
-   case 'pot-frame':state.poseFrame='pot';break;
    case 'actual-graph':state.target=false;break;
    case 'target-graph':state.target=true;break;
    default:return;
@@ -1163,7 +1294,7 @@ document.addEventListener('click',e=>{
  if(!target)return;
  if(target.dataset.capPage){capPage(target.dataset.capPage);return;}
  if(target.dataset.searchKey){chooseSearch(target.dataset.searchKey);return;}
- if(target.dataset.cmd){command(target.dataset.cmd,target.dataset.id);return;}
+ if(target.dataset.cmd){command(target.dataset.cmd,target.dataset.id,target);return;}
  if(target.dataset.key){select(target.dataset.key);return;}
  if(target.dataset.view){nextState(target.dataset.view);return;}
 });
@@ -1171,7 +1302,7 @@ document.addEventListener('keydown',e=>{
  if(el('cap-dialog').open || e.altKey || e.ctrlKey || e.metaKey || e.target.closest('input,textarea,select'))return;
  if(e.key==='/'){e.preventDefault();el('search').focus();return;}
  const g=e.target.closest('svg [role=button]');
- if(g&&['Enter',' '].includes(e.key)){e.preventDefault();if(g.dataset.cmd)command(g.dataset.cmd,g.dataset.id);else select(g.dataset.key);return;}
+ if(g&&['Enter',' '].includes(e.key)){e.preventDefault();if(g.dataset.cmd)command(g.dataset.cmd,g.dataset.id,g);else select(g.dataset.key);return;}
  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();seek(state.cursor+(e.key==='ArrowLeft'?-1:1));}
 });
 el('cap-dialog').addEventListener('click',e=>{if(e.target===el('cap-dialog')){const b=e.target.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)e.target.close();}});
